@@ -13,6 +13,8 @@ class Inventory extends React.Component {
                         index={key}
                         fish={this.props.fishes[key]}
                         updateFish={this.props.updateFish}
+                        deleteFish={this.props.deleteFish}
+
                     />
                 ))}
                 {/* Info is being passed down from APP, so it uses PROPS */}
