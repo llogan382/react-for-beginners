@@ -15,17 +15,34 @@ class App extends React.Component {
 
     //check if the db from firebase mounted
     componentDidMount() {
+
         //refs in firebase are a reference to a piece of data
         const { params } = this.props.match;
+
+        //reinstate local storage if it is there
+        const localStorageRef = localStorage.getItem(params.storeId);
+        console.log(localStorageRef);
+        if (localStorageRef) {
+            this.setState({ order: JSON.parse(localStorageRef) });
+        }
+
         this.ref = base.syncState(`${params.storeId}/fishes`, {
             context: this,
             state: 'fishes'
         });
     }
+    componentDidUpdate() {
+
+        // set the key and value for local storage
+        localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order))
+    }
 
     componentWillUnmount() {
+
+        //when leaving the store, don't reference the data anymore
         base.removeBinding(this.ref);
     }
+
 
     addFish = fish => {
         // In order to update state, you need to use the UPDATE STATE API.
