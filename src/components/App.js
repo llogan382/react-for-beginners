@@ -96,6 +96,16 @@ class App extends React.Component {
         //call setstate to update state object
         this.setState({ order });
     }
+
+    removeFromOrder = (key) => {
+        //take a copy of state
+        const order = { ...this.state.order };
+        //either add to the order or update the number in the order
+        delete order[key];
+
+        //call setstate to update state object
+        this.setState({ order });
+    }
     render() {
         return (
             <div className="catch-of-the-day" >
@@ -114,7 +124,8 @@ class App extends React.Component {
                 <Order
                     fishes={this.state.fishes}
                     order={this.state.order}
-                    deleteFish={this.deleteFish}
+                    removeFromOrder={this.removeFromOrder}
+
                 />
 
                 <Inventory
