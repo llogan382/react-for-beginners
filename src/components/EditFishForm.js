@@ -3,7 +3,6 @@ import React from 'react';
 
 class EditFishForm extends React.Component {
     handleChange = (event) => {
-        console.log(event.currentTarget.value);
 
         // Update the object. Here we are spreading the props and assigning them to updatedFish
         // This is send UPSTREAM into app, to update STATE with what is entered in the form
@@ -28,7 +27,10 @@ class EditFishForm extends React.Component {
                 </select>
                 <textarea name="desc" onChange={this.handleChange} value={this.props.fish.desc} />
                 <input type="text" name="image" onChange={this.handleChange} value={this.props.fish.image} />
-                <button onClick={() => this.props.deleteFish(this.props.index)}>
+                <button onClick={() =>
+                    console.log(this.currentTarget)
+                    // this.props.deleteFish(this.props.index)
+                }>
                     Remove Fish
                 </button>
 
