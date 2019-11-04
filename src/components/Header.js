@@ -22,7 +22,7 @@ const Header = (props) => (
 //Here is the same thing as above as a regular component:
 
 Header.propTypes = {
-    tagline: PropTypes.string.isRequired
+    tagline: PropTypes.string
 };
 
 export default Header;
