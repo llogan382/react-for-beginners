@@ -21,7 +21,6 @@ class App extends React.Component {
 
         //reinstate local storage if it is there
         const localStorageRef = localStorage.getItem(params.storeId);
-        console.log(localStorageRef);
         if (localStorageRef) {
             this.setState({ order: JSON.parse(localStorageRef) });
         }
@@ -110,7 +109,7 @@ class App extends React.Component {
         return (
             <div className="catch-of-the-day" >
                 <div className="menu">
-                    <Header tagline="Luke da man" age={34} zip={27403} />
+                    <Header tagline={true} />
                     <ul className="fishes">
                         {Object.keys(this.state.fishes).map(key => (
                             <Fish
