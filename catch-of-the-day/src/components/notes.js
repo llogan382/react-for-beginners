@@ -5,3 +5,6 @@
 // Onclick- create a function in app, pass it down to the inventory component
 
 // when the button is clicked, load the fish by updating state
+
+
+// Video 15: Use javascript to loop over items. Practice by viewing items in the console and viewing componentd
