@@ -20,8 +20,20 @@ class Order extends React.Component {
       <li key={key}>
         {count} lbs {fish.name}
         {formatPrice(count * fish.price)}
+        <button onClick={() => this.props.removeFromOrder(key)}>Remove</button>
       </li>
     );
+  }
+
+  removeFromOrder = (key) => {
+    // 1. Take a copy of state.
+    const order = { ...this.props.order }
+
+    // 2. update state
+    order[key] = null;
+
+    // 3. update state. Thei is the FIREBASE syntax
+    // this.setState({ fishes });
   }
 
   render() {
