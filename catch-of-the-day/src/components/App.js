@@ -20,8 +20,13 @@ class App extends React.Component {
     // son't sync entire database
     const { params } = this.props.match;
 
-    // go into just the "fishes" part of the firebase database
+    // reinstate local storage before updating state
+    const localStorageRef = localStorage.getItem(params.storeId);
+    if (localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef) })
+    }
 
+    // go into just the "fishes" part of the firebase database
     // syncstate requires two items be passed in
     // Create this so it can be removed when the component is unmounted
     this.ref = base.syncState(`${params.storeId}/fishes`, {
@@ -31,6 +36,15 @@ class App extends React.Component {
       state: 'fishes'
     });
   }
+
+
+  componentDidUpdate() {
+
+    // store item from this particular store in local storage
+    localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order))
+  }
+
+  // After component is unmounted, don't watch for changes anymore
   componentWillUnmount() {
     base.removeBinding(this.ref);
   }
