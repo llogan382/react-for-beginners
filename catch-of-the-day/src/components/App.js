@@ -4,6 +4,7 @@ import Order from "./Order";
 import Inventory from "./Inventory";
 import sampleFishes from "../sample-fishes";
 import Fish from './Fish';
+import base from "./base";
 
 class App extends React.Component {
 
@@ -12,6 +13,27 @@ class App extends React.Component {
     fishes: {},
     order: {}
   };
+
+  componentDidMount() {
+    // ref is a piece of data in the firebase database
+
+    // son't sync entire database
+    const { params } = this.props.match;
+
+    // go into just the "fishes" part of the firebase database
+
+    // syncstate requires two items be passed in
+    // Create this so it can be removed when the component is unmounted
+    this.ref = base.syncState(`${params.storeId}/fishes`, {
+      context: this,
+
+      // just sync the fish state
+      state: 'fishes'
+    });
+  }
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
   addFish = fish => {
     // 1. Take a copy of the existing state
     const fishes = { ...this.state.fishes };
