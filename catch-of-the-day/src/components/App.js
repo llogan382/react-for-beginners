@@ -57,6 +57,30 @@ class App extends React.Component {
     this.setState({ fishes });
   };
 
+  updateFish = (key, updatedFish) => {
+    // 1. take a copy of current state
+    const fishes = { ...this.state.props };
+
+    // 2. update the state
+    fishes[key] = updatedFish;
+
+    // 3. set that to state
+    this.setState({ fishes });
+  }
+
+
+  deleteFish = (key) => {
+    // 1. Take a copy of state.
+    const fishes = { ...this.state.fishes }
+
+    // 2. update state
+    fishes[key] = null;
+
+    // 3. update state. Thei is the FIREBASE syntax
+    this.setState({ fishes });
+  }
+
+
   // Load fishes button. Created here, passed to Inventory
   loadSampleFishes = () => {
 
@@ -75,6 +99,17 @@ class App extends React.Component {
     this.setState({ order });
 
   }
+
+  // Create a function in App. It takes in "key"
+  removeFromOrder = key => {
+    // Make a copy of state
+    const order = { ...this.state.order };
+    // delete from order
+    delete order[key];
+    //call set state to update our state
+    this.setState({ order });
+  }
+
   render() {
     return (
       <div className="catch-of-the-day">
@@ -94,8 +129,16 @@ class App extends React.Component {
         <Order
           fishes={this.state.fishes}
           order={this.state.order}
+          removeFromOrder={this.removeFromOrder}
+
         />
-        <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes} />
+        <Inventory
+          addFish={this.addFish}
+          updateFish={this.updateFish}
+          deleteFish={this.deleteFish}
+          loadSampleFishes={this.loadSampleFishes}
+          fishes={this.state.fishes}
+        />
       </div>
     );
   }
